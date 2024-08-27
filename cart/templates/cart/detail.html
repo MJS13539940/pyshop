@@ -1,0 +1,64 @@
+{% extends 'shop/base.html' %} <!-- 현재 templates폴더가 따로 있으므로 경로는 추후에 살펴볼 예정 -->
+{% load static %}
+
+{% block title %}
+    Your Shopping Cart
+{% endblock %}
+
+
+{% block content %}
+<h1>Your Shopping Cart</h1>
+<table class="cart">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+            <th>Unit price</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart %} <!-- 상품들의 정보를 차례로 표시 -->
+            {% with product=item.product %}
+                <tr>
+                    <td>
+                        <a href="{{ product.get_absolute_url }}">
+                            <img src="{% if product.image %}{{ product.image.url }}
+                                    {% else %}{% static 'img/no_image.png' %}{% endif %}">
+                        </a>
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>
+                        <form method="POST" action="{% url 'cart:cart_add' product.id %}">
+                            {{ item.update_quantity_form.quantity }}
+                            {{ item.update_quantity_form.override }}
+                            <input type="submit" value="update">
+                            {% csrf_token %}
+                        </form>
+                    </td>
+                    <td>
+                        <form method="POST" action="{% url 'cart:cart_remove' product.id %}">
+                            <input type="submit" value="Remove"> <!-- 제거 버튼 -->
+                            {% csrf_token %}
+                        </form>
+                    </td>
+                    <td class="num">${{ item.price }}</td>
+                    <td class="num">${{ item.total_price }}</td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+        <!-- 위의 표 아래 표내용에 대한 total을 표시 -->
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td class="num">${{ cart.get_total_price }}</td>
+        </tr>
+    </tbody>
+</table>
+<p class="text-right">
+    <a href="{% url 'shop:product_list' %}" class="button light">Continue shopping</a>
+</p>
+{% endblock %}
+

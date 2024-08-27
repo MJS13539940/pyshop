@@ -11,17 +11,22 @@
     <div id="header">
         <a href="/" class="logo">My shop</a>
     </div>
-    <!-- <div id="subheader">
-        <div class="cart">
-            {% with total_items=cart|length %} 
+    <div id="subheader">
+        <div class="cart"> <!-- 콘텍스트 프로세서 부분 -->
+            {% with total_items=cart|length %} <!-- 항목수 출력 -->
                 {% if total_items > 0 %}
                     Your cart:
                     <a href="{% url 'cart:cart_detail' %}">
+                        <!-- pluralize로 복수형으로 표시해준다. -->
+                    {{ total_items }} item{{ total_items|pluralize }},
+                    ${{ cart.get_total_price }}
                     </a>
-                {% endif %}       
+                {% else %}
+                    Your cart is empty.
+                {% endif %}
             {% endwith %}
         </div>
-    </div> -->
+    </div>
     <div id="content">
         {% block content %}
         {% endblock %}
