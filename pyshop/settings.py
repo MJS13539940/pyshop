@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
 ]
 
 #카트기능 구현을 위한 세션 기능
@@ -131,3 +132,17 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# #이메일 기능을 위한 설정-1
+# EMAIL_HOST = 'smtp.gmail.com' # 구글 제공
+# EMAIL_PORT = '587'
+# EMAIL_HOST_USER = 'user@gmail.com'
+# EMAIL_HOST_PASSWORD = '******'
+
+# EMAIL_USE_TLS = True
+# # EMAIL_USE_SSL = True  #둘중 하나만
+
+#이메일 기능을 위한 설정-2(선택)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# = 이메일을 보내는 대신 이메일 내용을 shell에 출력한다.(테스트할 때 좋음)
