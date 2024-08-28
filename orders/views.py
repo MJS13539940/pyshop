@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.urls import reverse
+from django.shortcuts import render, redirect
 
 from .models import OrderItem
 from .forms import OrderCreateForm
@@ -26,7 +27,12 @@ def order_create(request):
             #비동기 작업을 실행
             order_created.delay(order.id) #order.id에 대해서 order_created를 잠깐 대기시킨다.
 
-            return render(request, 'orders/order/created.html', {'order': order})
+            #세션 순서 결정
+            request.session['order_id'] = order.id
+            #결제 리디렉션
+            return redirect(reverse('payment:process'))
+
+            # return render(request, 'orders/order/created.html', {'order': order})
 
     else:
         form = OrderCreateForm()

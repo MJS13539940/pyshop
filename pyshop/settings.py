@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 #카트기능 구현을 위한 세션 기능
@@ -146,3 +147,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #이메일 기능을 위한 설정-2(선택)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # = 이메일을 보내는 대신 이메일 내용을 shell에 출력한다.(테스트할 때 좋음)
+
+
+
+# Stripe 이용을 위한 KEY
+# STRIPE_PUBLISHABLE_KEY = 'pk_test_51PsZUBDSMbpePL49Ui2kab7FIysjCYjJMCLNw2IIpk1EYDgP94kmCDKQIBsJpLC4UoRopyuhQxikwdSZlgagK3gh00rJLog979'
+STRIPE_SECRET_KEY = 'sk_test_51PsZUBDSMbpePL49uJZIiXPNCRfP44WYw1CHSNl69Hu8n38QaKzk2gjYrCGrPdqEwAta59Y9aITKpB15X87HpKmo00LEVxJZaZ'
+STRIPE_API_VERSION = '2024-06-20'
+
